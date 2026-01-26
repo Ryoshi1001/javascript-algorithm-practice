@@ -1,5 +1,5 @@
 // ============================================
-// JAVASCRIPT ALGORITHM PRACTICE
+// JAVASCRIPT ALGORITHM PRACTICE: Foundations Start Level
 // 18+ Problems Solved
 // ============================================
 // NOTE: Solutions are commented out to prevent conflicts

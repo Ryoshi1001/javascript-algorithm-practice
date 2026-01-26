@@ -1,41 +1,47 @@
 # JavaScript Algorithm Practice
 
-A collection of algorithm solutions I've built while preparing for technical interviews. Each problem includes the full prompt, constraints, and my working solution with explanatory comments.
+Collection of algorithm solutions for learning and reference. Built this as I work through common patterns - sharing in case it helps others learning the same concepts.
 
-## About
+## What's Here
 
-This repo contains 17+ solved problems covering common interview patterns and data structures. I'm continuously adding new solutions as I practice.
-
-## Topics Covered
-
-- **Arrays & Hash Maps** - Two Sum, merging sorted arrays
-- **Strings** - Palindrome checking, character frequency
-- **Two Pointers** - String validation, array manipulation
-- **Data Structures** - Maps for counting and lookup patterns
+**Foundations** - 18 problems solved covering:
+- Arrays & Hash Maps (Two Sum, find largest, first non-repeating character)
+- Strings (reverse, palindrome checking, character counting)
+- Stacks (valid parentheses)
+- Basic patterns (merging arrays, missing numbers)
 
 ## Structure
+```
+01-foundations/      - 18 solved problems (complete)
+02-core-patterns/    - Two pointers, sliding window (started)
+03-recursion/        - Basic recursion, backtracking (upcoming)
+04-linked-lists/     - Pointer manipulation (upcoming)
+05-trees-and-graphs/ - Binary trees, BST, graphs (upcoming)
+06-advanced/         - Dynamic programming, heaps (future)
+07-hard-problems/    - FAANG-level problems (future)
+```
 
-All solutions are in `algorithms.js`. Most code is commented out to prevent conflicts when running the file. Each solution includes:
+Each solution includes:
 - Full problem description
-- Constraints and requirements
-- Example inputs/outputs
-- My solution with explanatory comments
+- My solution with comments explaining the approach
+- Test cases
 
-## Example Problems
+## Using This Repo
 
-- **Two Sum** - Find indices of two numbers that add up to target (Hash Map approach)
-- **Palindrome Check** - Validate palindromes while ignoring non-alphanumeric characters
-- **First Non-Repeating Character** - Find first unique character using frequency counting
-- **Merge Sorted Arrays** - Combine two sorted arrays efficiently
+Feel free to:
+- Learn from the solutions and explanations
+- Use as reference while practicing
+- Suggest improvements or alternative approaches
+
+All code is commented to prevent conflicts. Uncomment individual solutions to test them.
 
 ## Progress
 
-✅ 17+ problems solved  
-🔄 Actively practicing and adding new solutions
+✅ 18 problems solved in foundations  
+🔄 Working through core patterns
 
-All solutions are fully functional and tested.
+This tracks my learning path from foundational algorithms to more advanced problems. All solutions are my own work - shared openly for anyone who finds it useful.
 
-## Notes
+## License
 
-These solutions represent my learning journey in algorithms and data structures. Each problem helped me understand core patterns used in technical interviews.
-```
+MIT License - feel free to use and learn from these solutions.
