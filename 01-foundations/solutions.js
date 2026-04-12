@@ -930,3 +930,172 @@
 // }
 
 // console.log(largestNumberInArray(arr))
+
+
+
+
+// ============================================
+// Question: 19:
+// Problem: Algorithm — Count Vowels in a String
+// Count how many vowels (a, e, i, o, u) exist in a given string.
+// The solution should be case-insensitive.
+
+// Examples:
+// "Programming" → 3
+// "Apple" → 2
+// "HELLO" → 2
+
+// Edge Cases:
+// ✅ Uppercase letters (A, E, I, O, U)
+// ✅ Strings with no vowels
+// ✅ Empty string ""
+// ✅ Mixed characters and spaces
+
+
+
+//My Solution: 
+
+// const str = "Programming"
+
+// const countVowels = (str) =>{
+//   const cleanString = str.toLowerCase(); 
+//   let numberOfVowels = 0; 
+//   console.log("numberOfVowels", numberOfVowels)
+
+//   for(let i = 0; i < cleanString.length; i++){
+//     if(cleanString[i] === "a" || cleanString[i] ==="e" || cleanString[i] ===  "i" || cleanString[i] === "o" || cleanString[i] === "u"){
+//       console.log('numberOfVowels inside if: ', numberOfVowels)
+//       numberOfVowels++;
+//     }
+//   }
+
+//   return numberOfVowels
+  
+// }
+
+
+// Many developers simplify this using .includes():
+
+// const vowels = "aeiou"
+
+// if (vowels.includes(cleanString[i])) {
+//   numberOfVowels++
+// }
+
+// const str = "racecar"
+// const isPalindrome = (str) => {
+//   const cleanStr = str.replace(/\s/g, "").toLowerCase()
+//   const reversedStr = cleanStr.split("").reverse().join("")
+//   return cleanStr === reversedStr
+// }
+
+// console.log(isPalindrome(str))
+
+// const isPalindrome = (str) => {
+//   const clean = str.replace(/\s/g, "").toLowerCase()
+
+//   let left = 0
+//   let right = clean.length - 1
+
+//   while (left < right) {
+//     if (clean[left] !== clean[right]) return false
+//     left++
+//     right--
+//   }
+
+//   return true
+// }
+
+
+
+
+// const str = "leetcode"
+
+// function nonRepeatingChar(str){
+//   const map = new Map()
+
+//   for(let i = 0; i < str.length; i++){
+
+// // You can fix it by getting the current value from the map:
+
+// // if(map.has(str[i])){
+// //   map.set(str[i], map.get(str[i]) + 1)
+// // } else {
+// //   map.set(str[i], 1)
+// // }    
+
+//     if(map.has(str[i])){
+//        map.set(str[i], value + 1)
+//     } else{
+//       map.set(str[i] , value = 1)
+//     }
+//   }
+
+//   for(const keys of map){
+//     if(keys[1] === 1){
+//       return keys[0]
+//     }
+//   }
+
+//   return null
+// }
+
+// console.log(nonRepeatingChar(str))
+
+
+
+
+
+// const str = "leetcode"
+
+// function nonRepeatingChar(str){
+//   const map = new Map()
+
+//   for(let i = 0; i < str.length; i++){
+
+//     if(map.has(str[i])){
+//        map.set(str[i], value + 1)
+//     } else{
+//       map.set(str[i] , value = 1)
+//     }
+//   }
+
+//   for(const keys of map){
+//     if(keys[1] === 1){
+//       return keys[0]
+//     }
+//   }
+// }
+
+// console.log(nonRepeatingChar(str))
+
+
+
+
+// ✅ Corrected Version
+// const str = "leetcode"
+
+// function nonRepeatingChar(str){
+//   const map = new Map()
+
+//   for(let i = 0; i < str.length; i++){
+//     if(map.has(str[i])){
+//       map.set(str[i], map.get(str[i]) + 1)
+//     } else {
+//       map.set(str[i], 1)
+//     }
+//   }
+
+//   for(const [char, count] of map){
+//     if(count === 1){
+//       return char
+//     }
+//   }
+
+//   return null
+// }
+
+// console.log(nonRepeatingChar(str))
+
+
+
