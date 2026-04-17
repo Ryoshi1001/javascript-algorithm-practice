@@ -325,3 +325,98 @@
 // const k = 2;
 
 // console.log(longestSubDistinctChars(s, k));
+
+
+
+// ============================================
+// Algorithm Question 5: Minimum Window Substring
+// PROBLEM: Given two strings s and t, return the smallest substring 
+// of s that contains all the characters in t, including duplicates.
+
+// ============================================
+// My SOLUTION: Minimum Window Substring
+// ============================================
+// Example:
+// Input: s = "ADOBECODEBANC", t = "ABC"
+// Output: "BANC"
+//
+// Explanation:
+// "BANC" is the smallest window containing A, B, and C.
+
+// 🚫 Rules
+// Must be O(n)
+// Use sliding window
+// You WILL need a Map here
+// Must track character frequencies
+// Return the substring itself, not just length
+// If no valid window exists, return ""
+
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const s = "ADOBECODEBANC"
+// const t = "ABC"
+
+// const minimumWindowSubstring = (s, t) => {
+//   let map = new Map()
+//   let windowMap = new Map()
+//   // boundary control
+//   let left = 0;  
+//   // answer storage
+//   let minLen = Infinity; 
+//   // validity tracking
+//   let fullyMatched = 0; 
+//   let result = ''
+
+//   //scan t building map
+//   for(let i = 0; i < t.length; i++){
+//     map.set(t[i], (map.get(t[i]) || 0) + 1)
+//   }
+
+//   console.log('map built so far: ', map)
+
+//   //scan s building windowMap
+//   for(let i = 0; i < s.length; i++){
+//     console.log('i in sFor', i, 's[i] in sFor: ', s[i])
+//     //expand right
+//     windowMap.set(s[i], (windowMap.get(s[i]) || 0) + 1)
+
+//     console.log('bulding windowmap before while', windowMap)
+
+//     if(windowMap.get(s[i]) === map.get(s[i])){
+//       console.log('matching in IF')
+//       fullyMatched++
+//       console.log('fullyMatched when windowmap and map have s[i]', fullyMatched)
+//     }
+//     console.log('left before while', left)
+
+//     while(fullyMatched === map.size){
+//       console.log('left in while', left)
+//       // saveing smallest: 
+//       if(i - left + 1 < minLen){
+//         minLen = i - left + 1
+//         result = s.slice(left, i + 1)
+//         console.log('minLen in While If: ', minLen)
+//         console.log('result in While If: ', result)
+//       }
+
+//       //decrement frequency
+//       console.log('decrementing s[left]', s[left])
+//       windowMap.set(s[left],  windowMap.get(s[left]) - 1)
+
+
+//       if(map.has(s[left]) && windowMap.get(s[left]) < map.get(s[left])){
+//         fullyMatched--
+//       }
+//       left++
+//     }
+
+//   }
+
+//   console.log('Final: ', 'Map: ', map, 'WindowMap: ', windowMap, 'left: ', left, 'minLen: ', minLen, 'fullyMatched: ', fullyMatched, 'result: ', result)
+//   return result || ''
+
+// }
+
+// console.log(minimumWindowSubstring(s, t))
