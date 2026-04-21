@@ -78,21 +78,64 @@
 // ============================================
 // Uncomment everything under (this line) down to the console.log to run code
 
-const fib = (n) => {
-    console.log('calling fib(', n, ')')  // ← add here
+// const fib = (n) => {
+//   console.log('calling fib(', n, ')')  
 
-  if(n === 0){
-    console.log('returning 0: fib(', n, ')')
-    return 0; 
-  } else if(n === 1){
-        console.log('returning 1: fib(', n, ')')
+//   if(n === 0){
+//     console.log('returning 0: fib(', n, ')')
+//     return 0; 
+//   } else if(n === 1){
+//     console.log('returning 1: fib(', n, ')')
+//     return 1; 
+//   } else{
+//     const result = fib(n - 1) + fib(n - 2)
+//     console.log('result console.log: ', result)
+//     return result
+//   }
 
-    return 1; 
-  } else{
-    const result = fib(n - 1) + fib(n - 2)
-    console.log('result console.log: ', result)
-    return result
-  }
-}
+// }
 
-console.log(fib(6))
+// console.log(fib(6))
+
+
+// ============================================
+// Algorithm Question 3: Power(x, n)
+// PROBLEM: Implement pow(x, n), which calculates x raised to the power n (x^n).
+// ============================================
+// SOLUTION: Power(x, n)
+// ============================================
+// Example:
+// Input: x = 2, n = 10
+// Output: 1024
+// Explanation: 2^10 = 1024
+//
+// Input: x = 2, n = -2
+// Output: 0.25
+// Explanation: 2^-2 = 1/(2^2) = 1/4 = 0.25
+//
+// 🚫 Rules
+// Must use recursion — no loops allowed
+// Must have a base case
+// Must handle negative exponents
+// 🎯 Bonus challenge: try to make it O(log n) instead of O(n)
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const toThePower = (x, n) => {
+//   console.log('x: ', x, "n: ", n)
+//   if(n < 0){
+//     console.log('turning n to positive using division')
+//     return 1 / toThePower(x, -n)
+//   } else if(n === 0){
+//     console.log('returning 1 n ==== 0')
+//     return 1
+//   } else{
+//   let result = x * toThePower(x, n - 1)
+//   console.log("result => ", result)
+//   return result  
+//   }
+
+// }
+
+// console.log(toThePower(2, 10))   // 1024
+// console.log(toThePower(2, -2))   // 0.25
