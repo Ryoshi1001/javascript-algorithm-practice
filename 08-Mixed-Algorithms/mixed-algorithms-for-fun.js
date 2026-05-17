@@ -461,3 +461,207 @@
 // that builds an object keyed by department, value = array of employees.
 // Stub from earlier session; needs implementation.
 // ============================================
+
+
+
+// ============================================
+// Question 11: Two Sum
+// ============================================
+// PROBLEM: Given an array of integers and a target number,
+// return the indices of the two numbers that add up to the target.
+//
+// You may assume there is exactly one valid solution,
+// and you cannot use the same element twice.
+//
+// Example:
+// Input:  nums = [2, 7, 11, 15], target = 9
+// Output: [0, 1]
+// (because nums[0] + nums[1] === 2 + 7 === 9)
+//
+// Input:  nums = [3, 2, 4], target = 6
+// Output: [1, 2]
+//
+// 🚫 Rules
+// - Return the indices, not the values
+// - Each input has exactly one solution
+// - You cannot use the same element twice (i.e. not the same index)
+//
+// Think about: can you do better than checking every pair?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const twoSum = (nums, target) => {
+//   let map = new Map()
+//   for(let i = 0; i < nums.length; i++){
+//     let compliment = target - nums[i]
+//     if(map.has(compliment)){
+//       return [map.get(compliment), i]
+//     }
+//     map.set(nums[i], i)
+//   }
+// }
+
+// console.log(twoSum([2, 7, 11, 15], 9));
+// Expected: [0, 1]
+// console.log(twoSum([3, 2, 4], 6));
+// Expected: [1, 2]
+
+
+
+// ============================================
+// Question 12: Move Zeros to End
+// ============================================
+// PROBLEM: Given an array of numbers, move all the zeros to the END
+// of the array while keeping the relative order of the non-zero numbers.
+//
+// Example:
+// Input:  [0, 1, 0, 3, 12]
+// Output: [1, 3, 12, 0, 0]
+//
+// Input:  [0, 0, 1]
+// Output: [1, 0, 0]
+//
+// Input:  [4, 2, 5]
+// Output: [4, 2, 5]   (no zeros — unchanged)
+//
+// Input:  [0, 0, 0]
+// Output: [0, 0, 0]
+//
+// 🚫 Rules
+// - Non-zero numbers must keep their original relative order
+// - Zeros all go to the end
+// - Returning a new array is fine (no in-place requirement)
+//
+// Think about: what's the simplest way to separate two groups
+// of things while preserving order?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const moveZeros = (nums) => {
+//   const nonzeros = []
+//   const zeros = []
+//   for(let i = 0; i < nums.length; i++){
+//     if(nums[i] === 0){
+//       zeros.push(nums[i])
+//     } else{
+//       nonzeros.push(nums[i])
+//     }
+//   }
+//   return [...nonzeros, ...zeros]
+// };
+
+// console.log(moveZeros([0, 1, 0, 3, 12]));
+// Expected: [1, 3, 12, 0, 0]
+// console.log(moveZeros([0, 0, 1]));
+// Expected: [1, 0, 0]
+// console.log(moveZeros([4, 2, 5]));
+// Expected: [4, 2, 5]
+
+
+// ============================================
+// Question 13: Most Frequent Element
+// ============================================
+// PROBLEM: Given an array, return the element that appears the most times.
+// If there's a tie, return the one that reached its highest count FIRST
+// while scanning left to right.
+//
+// Example:
+// Input:  [1, 3, 1, 3, 2, 1]
+// Output: 1   (appears 3 times)
+//
+// Input:  ["a", "b", "a", "c", "b"]
+// Output: "a"   (a and b both appear twice — "a" hit count 2 first)
+//
+// Input:  [7]
+// Output: 7
+//
+// 🚫 Rules
+// - Works for numbers OR strings
+// - On a tie, the element that REACHED the top count earliest wins
+// - Assume the array always has at least one element
+//
+// Think about: you need two things — a count of each element,
+// and a way to track the current winner as you go.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const mostFrequent = (arr) => {
+//   const map = new Map()
+//   let winner = ''
+//   let bestCount = 0
+
+//   for(let i = 0; i < arr.length; i++){
+//     if(map.has(arr[i])){
+//       const value = map.get(arr[i])
+//       map.set(arr[i], value + 1)
+//       console.log('map value has', arr[i], 'added to map', map)
+//     } else{
+//       map.set(arr[i], 1)
+//     }
+
+//     if(map.get(arr[i]) > bestCount){
+//       winner = arr[i]
+//       bestCount = map.get(arr[i])
+//     }
+//   }
+//   return winner
+
+// };
+
+// console.log(mostFrequent([1, 3, 1, 3, 2, 1]));
+// Expected: 1
+// console.log(mostFrequent(["a", "b", "a", "c", "b"]));
+// Expected: "a"
+// console.log(mostFrequent([7]));
+// Expected: 7
+
+
+// ============================================
+// Question 14: Group Numbers by Even / Odd
+// ============================================
+// PROBLEM: Given an array of numbers, return an object with two keys:
+// "even" and "odd". Each key holds an array of the numbers that
+// belong to that group, in their original order.
+//
+// Example:
+// Input:  [1, 2, 3, 4, 5, 6]
+// Output: { even: [2, 4, 6], odd: [1, 3, 5] }
+//
+// Input:  [7, 7, 8]
+// Output: { even: [8], odd: [7, 7] }
+//
+// Input:  []
+// Output: { even: [], odd: [] }
+//
+// 🚫 Rules
+// - Both "even" and "odd" keys must always exist, even if empty
+// - Preserve the original order within each group
+// - Assume all inputs are whole numbers (no decimals)
+//
+// Think about: the result object should already have both
+// empty arrays ready BEFORE the loop starts.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const groupEvenOdd = (nums) => {
+//   const obj = {even: [], odd: []}
+//   for(let i = 0; i < nums.length; i++){
+//     if(nums[i] % 2 === 0){
+//       obj.even.push(nums[i])
+//     } else{
+//       obj.odd.push(nums[i])
+//     }
+//   }
+//   return obj
+// };
+
+// console.log(groupEvenOdd([1, 2, 3, 4, 5, 6]));
+// Expected: { even: [2, 4, 6], odd: [1, 3, 5] }
+// console.log(groupEvenOdd([7, 7, 8]));
+// Expected: { even: [8], odd: [7, 7] }
+// console.log(groupEvenOdd([]));
+// Expected: { even: [], odd: [] }
