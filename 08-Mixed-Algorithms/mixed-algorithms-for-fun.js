@@ -815,3 +815,234 @@
 // Expected: 1
 // console.log(countWords(""));
 // Expected: 0
+
+
+// ============================================
+// Question 18: Find the Index of a Target
+// ============================================
+// PROBLEM: Given an array of numbers and a target number, return
+// the index of the first time the target appears in the array.
+// If the target is not in the array at all, return -1.
+//
+// Example:
+// Input:  [4, 8, 15, 16, 23], target 15
+// Output: 2
+//
+// Input:  [1, 2, 3], target 9
+// Output: -1
+//
+// Input:  [5, 5, 5], target 5
+// Output: 0
+//
+// Input:  [], target 1
+// Output: -1
+//
+// 🚫 Rules
+// - Return the FIRST matching index if the target appears more than once
+// - Return -1 if the target is not found
+// - Do not use the built-in indexOf method — write the search yourself
+// - An empty array returns -1
+//
+// Think about: what should happen the moment you find a match,
+// and what should happen if the loop finishes without ever
+// finding one.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const findIndex = (arr, target) => {
+//   for(let i = 0; i < arr.length; i++){
+//     if(arr[i] === target){
+//       return i
+//     }
+//   }
+
+//   return -1
+// };
+
+// console.log(findIndex([4, 8, 15, 16, 23], 15));
+// Expected: 2
+// console.log(findIndex([1, 2, 3], 9));
+// Expected: -1
+// console.log(findIndex([5, 5, 5], 5));
+// Expected: 0
+// console.log(findIndex([], 1));
+// Expected: -1
+
+
+
+// ============================================
+// Question 19: Second Largest Number
+// ============================================
+// PROBLEM: Given an array of numbers, return the second largest
+// number in it.
+//
+// Example:
+// Input:  [3, 1, 4, 1, 5, 9, 2, 6]
+// Output: 6
+//
+// Input:  [10, 20]
+// Output: 10
+//
+// Input:  [7, 7, 7, 5]
+// Output: 5
+//
+// 🚫 Rules
+// - "Second largest" means the second-highest distinct value.
+//   In [7, 7, 7, 5], the largest is 7 and the second largest is 5.
+// - You may assume the array has at least two distinct values.
+// - Do not sort the array — find it with a single pass if you can.
+//
+// Think about: you are tracking TWO things as you move through
+// the array, and they have a relationship to each other that
+// has to stay true on every step.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const secondLargest = (nums) => {
+//   let largest = -Infinity; 
+//   let secondLargest = -Infinity;
+//   for(let i = 0; i < nums.length; i++){
+//     console.log('largest: ', largest)
+//     console.log('secondLargest: ', secondLargest)
+//     if(nums[i] > largest){
+//       secondLargest = largest
+//       largest = nums[i]
+//     } else if(nums[i] < largest && nums[i] > secondLargest){
+//       secondLargest = nums[i]
+//     } 
+//   }
+
+//   return secondLargest
+// };
+
+// console.log(secondLargest([-5, -2, -8]))
+// Expected: -5
+// console.log(secondLargest([3, 1, 4, 1, 5, 9, 2, 6]));
+// Expected: 6
+// console.log(secondLargest([10, 20]));
+// Expected: 10
+// console.log(secondLargest([7, 7, 7, 5]));
+// Expected: 5
+
+
+// ============================================
+// Question 20: Are Two Strings Anagrams?
+// ============================================
+// PROBLEM: Given two strings, return true if they are anagrams of
+// each other, and false if they are not.
+//
+// Two strings are anagrams if they contain exactly the same
+// characters in the same quantities, just possibly in a
+// different order.
+//
+// Example:
+// Input:  "listen", "silent"
+// Output: true
+//
+// Input:  "hello", "world"
+// Output: false
+//
+// Input:  "aabb", "ab"
+// Output: false
+//
+// Input:  "", ""
+// Output: true
+//
+// 🚫 Rules
+// - Same characters AND same counts. "aabb" and "ab" are NOT
+//   anagrams — count matters, not just which letters appear.
+// - Assume lowercase letters only, no spaces or punctuation.
+// - Two empty strings are anagrams of each other.
+//
+// Think about: before you compare anything in detail, there is
+// one quick check that can rule out a huge number of pairs
+// instantly. And think about what "same characters in same
+// quantities" really means — what structure lets you count
+// things?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const isAnagram = (a, b) => {
+//   if(a.length !== b.length){
+//     return false
+//   }
+
+//   return a.split("").sort().join("") === b.split("").sort().join("")
+
+// };
+
+// console.log(isAnagram("listen", "silent"));
+// Expected: true
+// console.log(isAnagram("hello", "world"));
+// Expected: false
+// console.log(isAnagram("aabb", "ab"));
+// Expected: false
+// console.log(isAnagram("", ""));
+// Expected: true
+
+
+// ============================================
+// Question 21: First Non-Repeating Character
+// ============================================
+// PROBLEM: Given a string, return the first character that appears
+// exactly once in it. If every character repeats, return null.
+//
+// Example:
+// Input:  "leetcode"
+// Output: "l"
+//
+// Input:  "aabbcc"
+// Output: null        (every character repeats)
+//
+// Input:  "aabbc"
+// Output: "c"
+//
+// Input:  "z"
+// Output: "z"
+//
+// 🚫 Rules
+// - "First" means earliest by position in the original string.
+// - If no character appears exactly once, return null.
+// - Assume lowercase letters only.
+// - A single-character string returns that character.
+//
+// Think about: you need to know how many times EACH character
+// appears before you can decide which is first-and-unique. That
+// usually means two passes over the data — one to gather
+// information, one to make the decision.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const firstUnique = (str) => {
+//   const map = new Map()
+
+//   for(let i = 0; i < str.length; i++){
+//     if(!map.has(str[i])){
+//       map.set(str[i], 1)
+//     } else{
+//       const value = map.get(str[i])
+//       map.set(str[i], value + 1)
+//     }
+//   }
+
+//   for(let i = 0; i < str.length; i++){
+//     if(map.get(str[i]) === 1){
+//       return str[i]
+//     }
+//   }
+
+//   return null
+// };
+
+// console.log(firstUnique("leetcode"));
+// Expected: "l"
+// console.log(firstUnique("aabbcc"));
+// Expected: null
+// console.log(firstUnique("aabbc"));
+// Expected: "c"
+// console.log(firstUnique("z"));
+// Expected: "z"
