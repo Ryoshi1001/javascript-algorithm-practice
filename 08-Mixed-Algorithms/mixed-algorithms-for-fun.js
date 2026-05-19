@@ -665,3 +665,153 @@
 // Expected: { even: [8], odd: [7, 7] }
 // console.log(groupEvenOdd([]));
 // Expected: { even: [], odd: [] }
+
+
+// ============================================
+// Question 15: Running Sum of an Array
+// ============================================
+// PROBLEM: Given an array of integers, return a new array where each
+// element is the running sum of all elements up to and including
+// that index.
+//
+// The element at index 0 is just nums[0]. The element at index 1 is
+// nums[0] + nums[1]. The element at index i is the sum of every
+// number from index 0 through i.
+//
+// Example:
+// Input:  [1, 2, 3, 4]
+// Output: [1, 3, 6, 10]
+//
+// Input:  [5, -2, 3]
+// Output: [5, 3, 6]
+//
+// Input:  []
+// Output: []
+//
+// 🚫 Rules
+// - Return a NEW array; do not mutate the input
+// - Negative numbers are valid input
+// - An empty input array returns an empty array
+//
+// Think about: you only need to track one number as you go —
+// the sum so far — rather than re-adding earlier elements each time.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const runningSum = (nums) => {
+//   let runningSum = 0
+//   const newArray = []
+//   for(let i = 0; i < nums.length; i++){
+//     runningSum = runningSum + nums[i]
+//     newArray.push(runningSum)
+//   }
+//   return newArray
+// };
+
+// console.log(runningSum([1, 2, 3, 4]));
+// Expected: [1, 3, 6, 10]
+// console.log(runningSum([5, -2, 3]));
+// Expected: [5, 3, 6]
+// console.log(runningSum([]));
+// Expected: []
+
+
+// ============================================
+// Question 16: Sum of Even Numbers
+// ============================================
+// PROBLEM: Given an array of integers, return the sum of only the
+// even numbers in the array.
+//
+// If there are no even numbers, return 0.
+//
+// Example:
+// Input:  [1, 2, 3, 4, 5, 6]
+// Output: 12        (2 + 4 + 6)
+//
+// Input:  [1, 3, 5]
+// Output: 0         (no even numbers)
+//
+// Input:  [-4, -3, 2]
+// Output: -2        (-4 + 2)
+//
+// Input:  []
+// Output: 0
+//
+// 🚫 Rules
+// - Return a single number, not an array
+// - Negative even numbers count as even (e.g. -4 is even)
+// - An empty array returns 0
+//
+// Think about: this is an accumulator problem like the last one,
+// but with a condition deciding whether each element gets added.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const sumEvens = (nums) => {
+//   let result = 0
+
+//   for(let i = 0; i < nums.length; i++){
+//     if(nums[i] % 2 === 0){
+//       result = result + nums[i]
+//     }
+//   }
+
+//   return result 
+// };
+
+// console.log(sumEvens([1, 2, 3, 4, 5, 6]));
+// Expected: 12
+// console.log(sumEvens([1, 3, 5]));
+// Expected: 0
+// console.log(sumEvens([-4, -3, 2]));
+// Expected: -2
+// console.log(sumEvens([]));
+// Expected: 0
+
+
+// ============================================
+// Question 17: Count Words in a Sentence
+// ============================================
+// PROBLEM: Given a string containing words separated by single
+// spaces, return the number of words in it.
+//
+// A word is any sequence of characters between spaces.
+//
+// Example:
+// Input:  "the quick brown fox"
+// Output: 4
+//
+// Input:  "hello"
+// Output: 1
+//
+// Input:  ""
+// Output: 0
+//
+// 🚫 Rules
+// - Assume words are separated by exactly one space
+// - An empty string has 0 words
+// - Return a number
+//
+// Think about: there is a string method that turns a string into
+// an array by cutting it at a chosen character. What does that
+// give you for the empty-string case? Test it — the empty case
+// may surprise you.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// const countWords = (str) => {
+//  if(str === ''){
+//   return 0
+//  }
+//  return str.split(" ").length
+// };
+
+// console.log(countWords("the quick brown fox"));
+// Expected: 4
+// console.log(countWords("hello"));
+// Expected: 1
+// console.log(countWords(""));
+// Expected: 0
