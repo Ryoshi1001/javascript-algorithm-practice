@@ -1,5 +1,6 @@
 // ============================================
 // JAVASCRIPT ALGORITHM PRACTICE:
+// Environment: VS Code (Node)
 // ============================================
 // MIXED FUNDAMENTALS — Arrays, Strings, Loops, HashMaps
 // ============================================
@@ -1046,3 +1047,216 @@
 // Expected: "c"
 // console.log(firstUnique("z"));
 // Expected: "z"
+
+
+// ============================================
+// Interview Question 22: Valid Parentheses (Simple Version)
+// ============================================
+// PROBLEM: Given a string containing only the characters '(' and ')',
+// determine if the parentheses are balanced.
+//
+// A string is balanced when:
+//   - Every '(' has a matching ')' that comes after it
+//   - Every ')' has a matching '(' that came before it
+//
+// Example:
+// Input:  "(())"
+// Output: true
+//
+// Input:  "(()"
+// Output: false      (one '(' never gets closed)
+//
+// Input:  ")("
+// Output: false      (')' appears before any '(' opens)
+//
+// Input:  ""
+// Output: true       (empty string is technically balanced)
+//
+// Input:  "()()()"
+// Output: true
+//
+// 🚫 Rules
+// - Input only contains '(' and ')' — no other characters
+// - Return a boolean (true or false)
+// - An empty string is considered balanced
+//
+// Think about: you need to track how many "open" parens are
+// currently unclosed as you walk the string. What number can
+// never be valid mid-string?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const isBalanced = (str) => {
+//   const stack = []
+
+//   for(let i = 0; i < str.length; i++){
+//     if(str[i] === "("){
+//       stack.push(str[i])
+//     } else{
+//       if(stack.length === 0) return false
+//       stack.pop()
+//     }
+//   }
+
+//   return stack.length === 0 
+// }
+
+// console.log(isBalanced("(())"));
+// Expected: true
+// console.log(isBalanced("(()"));
+// Expected: false
+// console.log(isBalanced(")("));
+// Expected: false
+// console.log(isBalanced(""));
+// Expected: true
+// console.log(isBalanced(")"));
+// Expected: false
+// console.log(isBalanced("()()()"));
+// Expected: true
+
+
+
+// ============================================
+// Interview Question 23: Merge Two Sorted Arrays
+// ============================================
+// PROBLEM: Given two arrays that are each already sorted in
+// ascending order, return a single new array containing all the
+// elements from both, also sorted in ascending order.
+//
+// Example:
+// Input:  [1, 3, 5], [2, 4, 6]
+// Output: [1, 2, 3, 4, 5, 6]
+//
+// Input:  [1, 2, 3], [4, 5, 6]
+// Output: [1, 2, 3, 4, 5, 6]
+//
+// Input:  [], [1, 2, 3]
+// Output: [1, 2, 3]
+//
+// Input:  [1, 1, 2], [1, 3]
+// Output: [1, 1, 1, 2, 3]
+//
+// Input:  [], []
+// Output: []
+//
+// 🚫 Rules
+// - Both inputs are guaranteed to already be sorted ascending
+// - Duplicates are allowed and should all appear in the output
+// - Do NOT just concat and call .sort() — that throws away the
+//   fact that the inputs are already sorted. Solve it in a way
+//   that takes advantage of the sorted order.
+// - Return a NEW array; do not mutate either input
+//
+// Think about: if you stand at the front of both arrays at the
+// same time, which one do you take from on each step? What
+// happens when one of the two runs out before the other?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const mergeSorted = (arr1, arr2) => {
+//   let pointer1 = 0
+//   let pointer2 = 0
+//   const result = []
+
+//   while (pointer1 < arr1.length && pointer2 < arr2.length){
+//     if(arr1[pointer1] <= arr2[pointer2]){
+//       result.push(arr1[pointer1])
+//       pointer1++
+//     } else{
+//       result.push(arr2[pointer2])
+//       pointer2++
+//     }
+//   }
+
+//   // clean up arrays with while loops
+//   while (pointer1 < arr1.length){
+//     result.push(arr1[pointer1])
+//     pointer1++
+//   }
+
+//   while (pointer2 < arr2.length){
+//     result.push(arr2[pointer2])
+//     pointer2++
+//   }
+
+//   return result
+// }
+
+// console.log(mergeSorted([1, 3, 5], [2, 4, 6]));
+// Expected: [1, 2, 3, 4, 5, 6]
+// console.log(mergeSorted([1, 2, 3], [4, 5, 6]));
+// Expected: [1, 2, 3, 4, 5, 6]
+// console.log(mergeSorted([], [1, 2, 3]));
+// Expected: [1, 2, 3]
+// console.log(mergeSorted([1, 1, 2], [1, 3]));
+// Expected: [1, 1, 1, 2, 3]
+// console.log(mergeSorted([], []));
+// Expected: []
+
+
+
+// ============================================
+// Interview Question 24: Character Frequency Map
+// ============================================
+// PROBLEM: Given a string, return an object where each key is a
+// character from the string and each value is the number of times
+// that character appears.
+//
+// Spaces should be counted just like any other character. The
+// comparison is case-sensitive: "A" and "a" are different keys.
+//
+// Example:
+// Input:  "hello"
+// Output: { h: 1, e: 1, l: 2, o: 1 }
+//
+// Input:  "aA"
+// Output: { a: 1, A: 1 }
+//
+// Input:  "a b a"
+// Output: { a: 2, " ": 2, b: 1 }
+//
+// Input:  ""
+// Output: {}
+//
+// 🚫 Rules
+// - Case-sensitive (do NOT lowercase the input)
+// - Count every character including spaces
+// - Return a plain object, not a Map
+// - An empty string returns an empty object
+//
+// Think about: this is the classic "count things" pattern. You
+// have seen it before in your notes (firstUnique, mostFrequent).
+// The only twist is the return shape — plain object instead of
+// a Map.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const charFrequency = (str) => {
+//   const plainObject = {}
+//   for(let i = 0; i < str.length; i++){
+//     console.log('str length', str.length)
+//     if(!(str[i] in plainObject)){
+//       plainObject[str[i]] = 1
+//     } else{
+//       plainObject[str[i]] = plainObject[str[i]] + 1
+//     }
+//     console.log('plain object key value', plainObject[str[i]])
+//   }
+//   return plainObject
+  
+// }
+
+// console.log(charFrequency("hello"));
+// Expected: { h: 1, e: 1, l: 2, o: 1 }
+// console.log(charFrequency("aA"));
+// Expected: { a: 1, A: 1 }
+// console.log(charFrequency("a b a"));
+// Expected: { a: 2, " ": 2, b: 1 }
+// console.log(charFrequency(""));
+// Expected: {}
