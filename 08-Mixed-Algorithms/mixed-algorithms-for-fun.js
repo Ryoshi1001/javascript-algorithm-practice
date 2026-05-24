@@ -1260,3 +1260,278 @@
 // Expected: { a: 2, " ": 2, b: 1 }
 // console.log(charFrequency(""));
 // Expected: {}
+
+
+// ============================================
+// Interview Question 25: Longest Substring Without Repeating Characters
+// ============================================
+// PROBLEM: Given a string, return the LENGTH of the longest
+// substring that contains no repeating characters.
+//
+// A substring is a contiguous slice of the string — you cannot
+// skip characters to build it.
+//
+// Example:
+// Input:  "abcabcbb"
+// Output: 3
+// (the longest unique substring is "abc")
+//
+// Input:  "bbbbb"
+// Output: 1
+// (the longest unique substring is "b")
+//
+// Input:  "pwwkew"
+// Output: 3
+// (the longest unique substring is "wke" — note: "pwke" is NOT a
+//  substring because it skips a character)
+//
+// Input:  ""
+// Output: 0
+//
+// Input:  "abcdef"
+// Output: 6
+// (the whole string has no repeats)
+//
+// Input:  "dvdf"
+// Output: 3
+// (the longest unique substring is "vdf")
+//
+// 🚫 Rules
+// - Return a NUMBER (the length), not the substring itself
+// - Substrings must be contiguous (no gaps)
+// - Case-sensitive ("A" and "a" are different characters)
+// - Spaces count as characters
+// - An empty string returns 0
+//
+// Think about: you are walking through the string with a "window"
+// of characters that is currently valid (no repeats). When you
+// hit a character that breaks the rule, what does the window do?
+// Does it reset entirely, or does it shrink from one side until
+// it is valid again?
+//
+// Also think: you need a fast way to know whether a character is
+// already inside the current window. What data structure gives
+// you that in O(1)?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const longestUniqueSubstring = (str) => {
+//   const window = new Set()
+//   let left = 0; 
+//   let maxLength = 0; 
+
+//   console.log('window set: ', window)
+
+//   for(let right = 0; right < str.length; right++){
+//     console.log(right)
+//     console.log(str[right])
+
+//     console.log('window', window)
+
+//     console.log("string left: ", str[left])
+
+//     while(window.has(str[right])){
+//       window.delete(str[left])
+//       left++
+//     }
+
+//     window.add(str[right])
+
+
+//     let currentWindow = right - left + 1
+
+//     if(currentWindow > maxLength){
+//       maxLength = currentWindow
+//     }
+//   }
+
+//   return maxLength
+
+// }
+
+// console.log(longestUniqueSubstring("abcabcbb"));
+// Expected: 3
+// console.log(longestUniqueSubstring("bbbbb"));
+// Expected: 1
+// console.log(longestUniqueSubstring("pwwkew"));
+// Expected: 3
+// console.log(longestUniqueSubstring(""));
+// Expected: 0
+// console.log(longestUniqueSubstring("abcdef"));
+// Expected: 6
+// console.log(longestUniqueSubstring("dvdf"));
+// Expected: 3
+
+
+// ============================================
+// Interview Question 26: Group Anagrams
+// ============================================
+// PROBLEM: Given an array of strings, group together the strings
+// that are anagrams of each other. Return an array of arrays,
+// where each inner array contains strings that are anagrams of
+// one another.
+//
+// The order of the groups in the outer array does not matter.
+// The order of strings within a group does not matter.
+//
+// Two strings are anagrams if they contain the exact same
+// characters in the same quantities (just possibly rearranged).
+//
+// Example:
+// Input:  ["eat", "tea", "tan", "ate", "nat", "bat"]
+// Output: [
+//   ["eat", "tea", "ate"],
+//   ["tan", "nat"],
+//   ["bat"]
+// ]
+//
+// Input:  ["abc", "cba", "xyz"]
+// Output: [
+//   ["abc", "cba"],
+//   ["xyz"]
+// ]
+//
+// Input:  [""]
+// Output: [[""]]
+//
+// Input:  ["a"]
+// Output: [["a"]]
+//
+// Input:  []
+// Output: []
+//
+// 🚫 Rules
+// - Group order does not matter
+// - Order within a group does not matter
+// - Assume lowercase letters only
+// - A string with no anagram buddies still forms a group of one
+// - An empty input array returns an empty array
+// - An array with one empty string returns [[""]]
+//
+// Think about: two strings are anagrams if they share something
+// in common when you look at them a certain way. What "signature"
+// could you compute for each string so that anagrams share the
+// SAME signature, and non-anagrams have DIFFERENT signatures?
+//
+// Once you have that signature, what data structure lets you
+// quickly say "I've seen this signature before — put this string
+// in the existing group" vs "this is a new signature — start a
+// new group"?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const groupAnagrams = (strs) => {
+//   const map = new Map()
+
+//   for(let i = 0; i < strs.length; i++){
+//    const signature = strs[i].split("").sort().join("")
+//    if(map.has(signature)){
+//     const get = map.get(signature)
+//     get.push(strs[i])
+//    } else{
+//     map.set(signature, [strs[i]])
+//    }
+//   }
+
+//   return Array.from(map.values())
+// }
+
+// console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+// Expected: [["eat","tea","ate"],["tan","nat"],["bat"]]
+// console.log(groupAnagrams(["abc", "cba", "xyz"]));
+// Expected: [["abc","cba"],["xyz"]]
+// console.log(groupAnagrams([""]));
+// Expected: [[""]]
+// console.log(groupAnagrams(["a"]));
+// Expected: [["a"]]
+// console.log(groupAnagrams([]));
+// Expected: []
+
+
+// ============================================
+// Interview Question 27: Top K Frequent Elements
+// ============================================
+// PROBLEM: Given an array of numbers and a number k, return an
+// array containing the k most frequent elements in the input.
+//
+// The order of the result does not matter — just make sure the
+// k most frequent elements are in there.
+//
+// Example:
+// Input:  nums = [1, 1, 1, 2, 2, 3], k = 2
+// Output: [1, 2]
+// (1 appears 3 times, 2 appears 2 times, 3 appears once.
+//  The top 2 most frequent are 1 and 2.)
+//
+// Input:  nums = [1], k = 1
+// Output: [1]
+//
+// Input:  nums = [4, 4, 4, 5, 5, 6], k = 2
+// Output: [4, 5]
+//
+// Input:  nums = [7, 7, 8, 8, 9, 9], k = 3
+// Output: [7, 8, 9]
+// (all three tied at count 2 — any order works)
+//
+// Input:  nums = [1, 2, 3, 4], k = 4
+// Output: [1, 2, 3, 4]
+// (every element shows up once — return all of them)
+//
+// 🚫 Rules
+// - Return an array of length k
+// - Order of the returned elements does not matter
+// - k will always be valid (between 1 and the number of unique
+//   elements in nums)
+// - Assume the input array always has at least one element
+// - Ties can be broken in any order
+//
+// Think about: this problem has two phases.
+//
+// Phase 1: figure out how many times each number appears.
+//          (You've done this exact step in your notes before.)
+//
+// Phase 2: from those counts, pick the k numbers with the
+//          highest counts.
+//
+// For Phase 2, ask yourself: what's the most natural way to find
+// "the top k of something"? Is there a built-in operation that
+// arranges things from most to least?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const topKFrequent = (nums, k) => {
+//   const map = new Map()
+
+//   for(let i = 0; i < nums.length; i++){
+//     if(map.has(nums[i])){
+//       const value = map.get(nums[i])
+//       map.set(nums[i], value + 1)
+//     } else{
+//       map.set(nums[i], 1)
+//     }
+//   }
+//   const arrayFromMap = Array.from(map.entries())
+//   const sorted = arrayFromMap.sort((a, b) => b[1] - a[1])
+
+//   const firstKPairs = sorted.slice(0, k)
+
+//   return firstKPairs.map((pair) => pair[0])
+
+// }
+
+// console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
+// Expected: [1, 2]
+// console.log(topKFrequent([1], 1));
+// Expected: [1]
+// console.log(topKFrequent([4, 4, 4, 5, 5, 6], 2));
+// Expected: [4, 5]
+// console.log(topKFrequent([7, 7, 8, 8, 9, 9], 3));
+// Expected: [7, 8, 9]
+// console.log(topKFrequent([1, 2, 3, 4], 4));
+// Expected: [1, 2, 3, 4]
