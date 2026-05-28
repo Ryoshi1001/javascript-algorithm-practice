@@ -1264,6 +1264,7 @@
 
 // ============================================
 // Interview Question 25: Longest Substring Without Repeating Characters
+// 🧠 Pattern: sliding window + Set + while-shrink
 // ============================================
 // PROBLEM: Given a string, return the LENGTH of the longest
 // substring that contains no repeating characters.
@@ -1367,6 +1368,7 @@
 
 // ============================================
 // Interview Question 26: Group Anagrams
+// 🧠 Pattern: Map + sorted-string signature
 // ============================================
 // PROBLEM: Given an array of strings, group together the strings
 // that are anagrams of each other. Return an array of arrays,
@@ -1453,7 +1455,8 @@
 
 
 // ============================================
-// Interview Question 27: Top K Frequent Elements
+// Interview Question 27: Top K Frequent 
+// 🧠 Pattern: count Map → sort → slice → map
 // ============================================
 // PROBLEM: Given an array of numbers and a number k, return an
 // array containing the k most frequent elements in the input.
@@ -1535,3 +1538,399 @@
 // Expected: [7, 8, 9]
 // console.log(topKFrequent([1, 2, 3, 4], 4));
 // Expected: [1, 2, 3, 4]
+
+
+// ============================================
+// Interview Question 28: Maximum Subarray Sum
+// 🧠 Pattern: running tally with a reset condition
+//  Kadane's Algorithm 
+// ============================================
+// PROBLEM: Given an array of integers (positive, negative, or both),
+// return the largest possible sum you can get from any contiguous
+// subarray within it.
+//
+// A contiguous subarray means a slice of the array where the
+// elements are next to each other — you cannot skip elements.
+// The subarray must contain at least one number.
+//
+// Example:
+// Input:  [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+// Output: 6
+// (the subarray [4, -1, 2, 1] gives the largest sum: 6)
+//
+// Input:  [1]
+// Output: 1
+//
+// Input:  [5, 4, -1, 7, 8]
+// Output: 23
+// (the entire array sums to 23)
+//
+// Input:  [-3, -1, -2]
+// Output: -1
+// (all negatives — the best you can do is the single largest one)
+//
+// Input:  [-1, -2, -3, -4]
+// Output: -1
+//
+// Input:  [3, -2, 5, -1]
+// Output: 6
+// (the subarray [3, -2, 5] gives 6)
+//
+// 🚫 Rules
+// - Return a NUMBER (the sum), not the subarray itself
+// - The subarray must be contiguous (no gaps)
+// - The subarray must contain at least one element
+// - Handle all-negative arrays correctly — the answer should be
+//   the single largest (least negative) number, NOT 0
+// - Do NOT start your running total at 0 if that breaks the
+//   all-negatives case — think carefully about your initial values
+// - Assume the input array always has at least one element
+//
+// Think about: as you walk through the array tracking a running
+// sum, what happens when that running sum goes negative? Is it
+// ever worth carrying a negative running sum forward into the
+// next element, or are you better off starting fresh from the
+// current element?
+//
+// You are also tracking TWO things at once here — the current
+// running sum AND the best sum you've seen so far. They are not
+// the same thing, and they update on different conditions.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const maxSubarraySum = (arr) => {
+//   let runningSum = 0
+//   let addOrResetSum = -Infinity
+
+//   for(let i = 0; i < arr.length; i++){
+//     console.log("i:", i, "arr[i]:", arr[i], "runningSum:", runningSum)
+//     addOrResetSum = Math.max(arr[i] , arr[i] + runningSum)
+
+//     if(addOrResetSum > maxSum){
+//       maxSum = runningSum
+//     }
+//   }
+
+//   return maxSum
+
+// }
+
+// console.log(maxSubarraySum([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+// Expected: 6
+// console.log(maxSubarraySum([1]));
+// Expected: 1
+// console.log(maxSubarraySum([5, 4, -1, 7, 8]));
+// Expected: 23
+// console.log(maxSubarraySum([-3, -1, -2]));
+// Expected: -1
+// console.log(maxSubarraySum([-1, -2, -3, -4]));
+// Expected: -1
+// console.log(maxSubarraySum([3, -2, 5, -1]));
+// Expected: 6
+
+
+// ============================================
+// Interview Question 29: Best Time to Buy and Sell Stock
+// 🧠 Pattern: track a minimum + best result so far
+// ============================================
+// PROBLEM: You are given an array of numbers where each element
+// represents the price of a stock on that day. You want to find
+// the maximum profit you could have made by buying on one day
+// and selling on a LATER day.
+//
+// You can only complete ONE transaction (buy once, sell once).
+// You must buy BEFORE you sell — you cannot sell on a day that
+// comes before the day you bought.
+//
+// If no profit is possible, return 0.
+//
+// Example:
+// Input:  [7, 1, 5, 3, 6, 4]
+// Output: 5
+// (Buy on day 1 at price 1, sell on day 4 at price 6 → profit 5)
+//
+// Input:  [7, 6, 4, 3, 1]
+// Output: 0
+// (Prices only go down — no profitable trade possible)
+//
+// Input:  [1, 2, 3, 4, 5]
+// Output: 4
+// (Buy at 1, sell at 5)
+//
+// Input:  [2, 4, 1]
+// Output: 2
+// (Buy at 2, sell at 4. You CANNOT buy at 1 because it comes
+//  after — there's nothing to sell to later.)
+//
+// Input:  [5]
+// Output: 0
+// (Only one day — can't both buy and sell)
+//
+// Input:  [3, 3, 3]
+// Output: 0
+// (No price movement — no profit)
+//
+// 🚫 Rules
+// - You must buy BEFORE you sell (sell day > buy day, strictly)
+// - Only ONE transaction allowed (no multiple buy/sell cycles)
+// - Return the maximum profit as a number
+// - If no profit possible, return 0 (NOT a negative number)
+// - Assume all prices are non-negative numbers
+// - A single-element array returns 0
+//
+// Think about: the naive approach is to check every possible
+// buy day against every possible sell day after it. That works,
+// but it's O(n²) — two nested loops. Can you do better?
+//
+// As you walk through the array left to right, ask yourself:
+// "If I'm thinking about selling TODAY, what's the BEST day I
+// could have bought on so far?" The answer is the cheapest
+// price I've seen up to (but not including) today.
+//
+// So you only need to track ONE thing as you go to know your
+// best possible buy price. And on each day, you can calculate
+// today's potential profit against that. Compare to the best
+// profit you've seen so far.
+//
+// Two variables, one pass. Sound familiar? 😄
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const maxProfit = (arr) => {
+//   let lowestPrice = Infinity
+//   let bestProfit = 0
+
+//   for(let i = 0; i < arr.length; i++){
+//     if(arr[i] < lowestPrice){
+//       lowestPrice = arr[i]
+//     }
+//     console.log("lowestprice", lowestPrice)
+
+//     console.log('arr[i]', arr[i])
+//     bestProfit = Math.max(arr[i] - lowestPrice, bestProfit )
+//     console.log('bestProfit', bestProfit)
+//   }
+
+//   return bestProfit
+
+// }
+
+// console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+// Expected: 5
+// console.log(maxProfit([7, 6, 4, 3, 1]));
+// Expected: 0
+// console.log(maxProfit([1, 2, 3, 4, 5]));
+// Expected: 4
+// console.log(maxProfit([2, 4, 1]));
+// Expected: 2
+// console.log(maxProfit([5]));
+// Expected: 0
+// console.log(maxProfit([3, 3, 3]));
+// Expected: 0
+
+
+// ============================================
+// Interview Question 30: Contains Duplicate Within K Distance
+// 🧠 Pattern: sliding window + Set
+// ============================================
+// PROBLEM: Given an array of integers and a number k, return true
+// if there exist two DIFFERENT indices i and j in the array such
+// that nums[i] === nums[j] AND the absolute difference between
+// i and j is at most k.
+//
+// In plain English: return true if the array contains any
+// duplicate values that are within k positions of each other.
+// Otherwise return false.
+//
+// Example:
+// Input:  nums = [1, 2, 3, 1], k = 3
+// Output: true
+// (the two 1's are at indices 0 and 3 — distance is 3, which is
+//  ≤ k, so it counts)
+//
+// Input:  nums = [1, 0, 1, 1], k = 1
+// Output: true
+// (the 1's at indices 2 and 3 are distance 1 apart — counts)
+//
+// Input:  nums = [1, 2, 3, 1, 2, 3], k = 2
+// Output: false
+// (the two 1's are 3 positions apart, the two 2's are 3 apart,
+//  the two 3's are 3 apart — all bigger than k=2, so no match)
+//
+// Input:  nums = [1, 2, 3, 4, 5], k = 3
+// Output: false
+// (no duplicates at all)
+//
+// Input:  nums = [99, 99], k = 2
+// Output: true
+// (distance is 1, which is ≤ 2)
+//
+// Input:  nums = [1], k = 1
+// Output: false
+// (only one element — no pair possible)
+//
+// Input:  nums = [], k = 0
+// Output: false
+//
+// 🚫 Rules
+// - Return a BOOLEAN (true or false)
+// - The two indices must be DIFFERENT (i ≠ j)
+// - The absolute distance must be ≤ k (not strictly less than)
+// - k is always a non-negative integer
+// - Single-element and empty arrays return false
+//
+// Think about: the naive approach is two nested loops — check
+// every pair, see if values match AND positions are within k.
+// That's O(n × k) or O(n²) in the worst case. Works, but slow.
+//
+// Can you do it in ONE pass?
+//
+// Here's the question to ask yourself: as you walk through the
+// array left to right, what would you need to "remember" to know
+// instantly whether the current element has appeared in the last
+// k positions?
+//
+// You don't need to remember EVERY element you've ever seen — 
+// just the ones close enough to matter. Anything farther back
+// than k positions can't form a valid pair with you anymore, so
+// it can be forgotten.
+//
+// What data structure lets you:
+//   1. Check "have I seen this value recently?" in O(1)
+//   2. Add new values in O(1)
+//   3. Remove old values in O(1)
+//
+// You used it in Question 25 (longest unique substring). 😄
+//
+// The "window" here is the last k elements. As you walk forward,
+// the window slides forward too — newest element comes in, oldest
+// element (if window is too big) goes out.
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const containsNearbyDuplicate = (arr, k) => {
+//   const set = new Set()
+
+//   for(let i = 0; i < arr.length; i++){
+   
+//     if(set.has(arr[i])){
+//       return true
+//     } else{
+//       set.add(arr[i])
+//     }
+
+//     if(set.size > k){
+//       set.delete(arr[i - k])
+//     }
+//   }
+
+//   return false
+// }
+
+
+// console.log(containsNearbyDuplicate([1, 1, 3, 1], 3));
+// Expected: true
+// console.log(containsNearbyDuplicate([1, 0, 1, 1], 1));
+// Expected: true
+// console.log(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2));
+// Expected: false
+// console.log(containsNearbyDuplicate([1, 2, 3, 4, 5], 3));
+// Expected: false
+// console.log(containsNearbyDuplicate([99, 99], 2));
+// Expected: true
+// console.log(containsNearbyDuplicate([1], 1));
+// Expected: false
+// console.log(containsNearbyDuplicate([], 0));
+// Expected: false
+
+
+// ============================================
+// Interview Question 31: Find the Pivot Index
+// 🧠 Pattern: one pass with a running total (you've got this)
+// ============================================
+// PROBLEM: Given an array of integers, return the leftmost "pivot
+// index." The pivot index is the index where the sum of all the
+// numbers strictly to its LEFT equals the sum of all the numbers
+// strictly to its RIGHT.
+//
+// The element AT the pivot index is not counted on either side.
+//
+// If no such index exists, return -1.
+// If there are multiple, return the LEFTMOST one.
+//
+// Example:
+// Input:  [1, 7, 3, 6, 5, 6]
+// Output: 3
+// (At index 3, left sum = 1+7+3 = 11, right sum = 5+6 = 11. Equal!)
+//
+// Input:  [1, 2, 3]
+// Output: -1
+// (No index works: index 0 has left sum 0, right sum 5. Etc.)
+//
+// Input:  [2, 1, -1]
+// Output: 0
+// (At index 0, left sum = 0 (nothing to the left), right sum = 1+(-1) = 0. Equal!)
+//
+// Input:  [0, 0, 0, 0]
+// Output: 0
+// (Index 0: left = 0, right = 0+0+0 = 0. Equal — and it's leftmost.)
+//
+// Input:  [-1, -1, -1, 0, 1, 1]
+// Output: 0
+//
+// Input:  [5]
+// Output: 0
+// (Single element: left sum = 0, right sum = 0. Equal.)
+//
+// 🚫 Rules
+// - Left sum of index 0 is 0 (nothing to its left)
+// - Right sum of the last index is 0 (nothing to its right)
+// - Return the LEFTMOST valid pivot if multiple exist
+// - Return -1 if none exists
+// - Negative numbers are valid input
+// - A single-element array returns 0
+//
+// (You have everything you need from earlier problems. One pass
+//  is possible. Think about what you can compute up front, and
+//  what you can track as you walk.)
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const pivotIndex = (arr) => {
+//   let totalSum =  arr.reduce((totalSoFar, currentIndexValue) => totalSoFar + currentIndexValue, 0);
+//   let leftSum = 0; 
+
+//   for(let i = 0; i < arr.length; i++){
+//     let rightSum = totalSum - arr[i] - leftSum
+
+//     if(leftSum === rightSum){
+//       return i
+//     }
+
+//     leftSum+= arr[i]
+//   }
+
+//   return -1
+// }
+
+// console.log(pivotIndex([1, 7, 3, 6, 5, 6]));
+// Expected: 3
+// console.log(pivotIndex([1, 2, 3]));
+// Expected: -1
+// console.log(pivotIndex([2, 1, -1]));
+// Expected: 0
+// console.log(pivotIndex([0, 0, 0, 0]));
+// Expected: 0
+// console.log(pivotIndex([-1, -1, -1, 0, 1, 1]));
+// Expected: 0
+// console.log(pivotIndex([5]));
+// Expected: 0
+
+
