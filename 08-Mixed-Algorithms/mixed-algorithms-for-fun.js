@@ -2051,7 +2051,7 @@
 
 //   for(let i = 0; i <= arr.length; i++){
 //     if(!set.has(i)){
-//       return 
+//       return i
 //     }
 //   }
 // }
@@ -2070,7 +2070,7 @@
 
 // ============================================
 // Interview Question 34: Intersection of Two Arrays
-// 🧠 Pattern: ???
+// 🧠 Pattern:  Set lookup + Set collector
 // ============================================
 // PROBLEM: Given two arrays, return an array of their UNIQUE
 // common elements (the intersection). Each element in the result
