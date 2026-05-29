@@ -1934,3 +1934,203 @@
 // Expected: 0
 
 
+// ============================================
+// Interview Question 32: Single Number
+// 🧠 Pattern: count with Map, then .find pair where count === 1
+// // ============================================
+// PROBLEM: Given an array of integers where every element appears
+// EXACTLY TWICE except for one element which appears EXACTLY ONCE,
+// find and return that single one.
+//
+// Example:
+// Input:  [2, 2, 1]
+// Output: 1
+//
+// Input:  [4, 1, 2, 1, 2]
+// Output: 4
+//
+// Input:  [1]
+// Output: 1
+//
+// Input:  [7, 3, 5, 3, 7]
+// Output: 5
+//
+// Input:  [-1, -1, -2]
+// Output: -2
+//
+// 🚫 Rules
+// - Every element except ONE appears exactly twice
+// - The single element appears exactly once
+// - The array is NOT sorted
+// - Return the single number itself, not its index
+// - Negative numbers are valid input
+// - There is always exactly one single number (guaranteed)
+// - A single-element array returns that element
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const singleNumber  = (arr) => {
+//   const map = new Map()
+//   for(let i = 0; i < arr.length; i++){
+//     if(map.has(arr[i])){
+//       map.set(arr[i], map.get(arr[i]) + 1)
+//     } else{
+//       map.set(arr[i], 1)
+//     }
+//   }
+//   return Array.from(map.entries()).find((item) => item[1] === 1)[0]
+// }
+
+// console.log(singleNumber([2, 2, 1]));
+// Expected: 1
+// console.log(singleNumber([4, 1, 2, 1, 2]));
+// Expected: 4
+// console.log(singleNumber([1]));
+// Expected: 1
+// console.log(singleNumber([7, 3, 5, 3, 7]));
+// Expected: 5
+// console.log(singleNumber([-1, -1, -2]));
+// Expected: -2
+
+
+// ============================================
+// Interview Question 33: Missing Number
+// 🧠 Pattern: Set lookup over expected range (0..n)
+// // ============================================
+// PROBLEM: Given an array of unique numbers, find the ONE number
+// missing from the range 0 up to the array's length.
+//
+// In plain English:
+// If the array has length n, the range is 0 to n (inclusive).
+// Because the range INCLUDES 0, there are actually n + 1 possible
+// numbers in that range: 0, 1, 2, ..., n.
+// But the array only holds n of them — so exactly one is missing.
+// Find and return it.
+//
+// Example:
+// Length 8 array → range is 0..8 → that's 9 possible numbers
+// → only 8 fit in the array → 1 is always missing 🧩
+//
+// Example:
+// Input:  [3, 0, 1]
+// Output: 2
+// (Length is 3, so range is 0..3 = [0,1,2,3]. Missing: 2)
+//
+// Input:  [0, 1]
+// Output: 2
+// (Length is 2, so range is 0..2 = [0,1,2]. Missing: 2)
+//
+// Input:  [9, 6, 4, 2, 3, 5, 7, 0, 1]
+// Output: 8
+// (Length is 9, so range is 0..9. Missing: 8)
+//
+// Input:  [0]
+// Output: 1
+// (Length is 1, so range is 0..1 = [0,1]. Missing: 1)
+//
+// Input:  [1]
+// Output: 0
+// (Length is 1, so range is 0..1 = [0,1]. Missing: 0)
+//
+// 🚫 Rules
+// - Array contains DISTINCT numbers (no duplicates)
+// - Numbers come from the range 0..n where n is the array length
+// - EXACTLY ONE number from that range is missing
+// - The array is NOT sorted
+// - Return the missing number itself (not its would-be index)
+// - Negative numbers will not appear
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const missingNumber = (arr) => {
+//   const set = new Set(arr)
+
+//   for(let i = 0; i <= arr.length; i++){
+//     if(!set.has(i)){
+//       return 
+//     }
+//   }
+// }
+
+// console.log(missingNumber([3, 0, 1]));
+// Expected: 2
+// console.log(missingNumber([0, 1]));
+// Expected: 2
+// console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]));
+// Expected: 8
+// console.log(missingNumber([0]));
+// Expected: 1
+// console.log(missingNumber([1]));
+// Expected: 0
+
+
+// ============================================
+// Interview Question 34: Intersection of Two Arrays
+// 🧠 Pattern: ???
+// ============================================
+// PROBLEM: Given two arrays, return an array of their UNIQUE
+// common elements (the intersection). Each element in the result
+// should appear only ONCE, and the order does not matter.
+// The plain version is just "what's in both?"
+//
+// Example:
+// Input:  [1, 2, 2, 1], [2, 2]
+// Output: [2]
+//
+// Input:  [4, 9, 5], [9, 4, 9, 8, 4]
+// Output: [9, 4]   (or [4, 9] — order doesn't matter)
+//
+// Input:  [1, 2, 3], [4, 5, 6]
+// Output: []
+//
+// Input:  [1, 1, 1], [1, 1]
+// Output: [1]
+//
+// Input:  [], [1, 2, 3]
+// Output: []
+//
+// 🚫 Rules
+// - Each element in the result appears only ONCE (no duplicates)
+// - Order of the result does NOT matter
+// - Return an empty array if there are no common elements
+// - Both inputs may contain duplicates, but the result must not
+// - Either array may be empty
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const intersection = (arr1, arr2) => {
+//   const arr1Set = new Set()
+//   const intersectionSet = new Set()
+
+//   for(let i = 0; i < arr1.length; i++){
+//     arr1Set.add(arr1[i])
+//   }
+
+//   for(let i = 0; i < arr2.length; i++){
+//     if(arr1Set.has(arr2[i])){
+//       intersectionSet.add(arr2[i])
+//     }
+//   }
+
+//   return Array.from(intersectionSet)
+
+// }
+
+// console.log(intersection([1, 2, 2, 1], [2, 2]));
+// Expected: [2]
+// console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4]));
+// Expected: [9, 4] or [4, 9]
+// console.log(intersection([1, 2, 3], [4, 5, 6]));
+// Expected: []
+// console.log(intersection([1, 1, 1], [1, 1]));
+// Expected: [1]
+// console.log(intersection([], [1, 2, 3]));
+// Expected: []
+
+
