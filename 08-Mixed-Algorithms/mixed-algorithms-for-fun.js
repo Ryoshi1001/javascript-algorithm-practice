@@ -2134,3 +2134,295 @@
 // Expected: []
 
 
+// ============================================
+// Interview Question 35: Longest Consecutive Sequence
+// 🧠 Pattern: dump into Set, only count up from sequence starts
+// ============================================
+// PROBLEM: Given an array of integers, return the LENGTH of the
+// longest run of consecutive numbers (each one bigger than the
+// last by exactly 1). The numbers can be in any order in the
+// input, and they do NOT have to be next to each other in the
+// array - only their VALUES need to be consecutive.
+//
+// Example:
+// Input:  [100, 4, 200, 1, 3, 2]
+// Output: 4
+// (The consecutive run is 1, 2, 3, 4. That's 4 numbers long.
+//  100 and 200 are on their own. Order in the array doesn't matter.)
+//
+// Input:  [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
+// Output: 9
+// (The run 0,1,2,3,4,5,6,7,8 is 9 long. The duplicate 0 doesn't help.)
+//
+// Input:  [1, 2, 0, 1]
+// Output: 3
+// (The run 0,1,2 is 3 long. The duplicate 1 doesn't extend it.)
+//
+// Input:  [10]
+// Output: 1
+// (A single number is a run of length 1.)
+//
+// Input:  []
+// Output: 0
+//
+// Input:  [5, 5, 5]
+// Output: 1
+// (All duplicates - the longest run is just the number 5 by itself.)
+//
+// 🚫 Rules
+// - Return a NUMBER (the length of the run), not the numbers
+// - Consecutive means values differ by exactly 1 (e.g. 3,4,5)
+// - The numbers can appear in ANY order in the input array
+// - Duplicates do NOT extend a run (5,5,6 is a run of length 2)
+// - Negative numbers are valid input
+// - An empty array returns 0
+//
+// Think about: the brute-force instinct is to sort the array
+// first, then walk it counting runs. That works and it's O(n log n)
+// from the sort. Get that version working first if it helps you
+// think.
+//
+// But there's an O(n) way. Here's the key question: if you could
+// check "is the number X in this collection?" instantly in O(1),
+// how would that change your approach? What structure gives you
+// that?
+//
+// And the real trick: you do NOT want to count the length of a
+// run starting from every single number - that does repeated work.
+// You only want to start counting from numbers that are the TRUE
+// START of a run. How can you tell, just by looking at one number,
+// whether it's the beginning of a sequence or sitting in the
+// middle of one? (Hint: check whether the number just below it
+// exists.)
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const longestConsecutive = (arr) => {
+//   const set = new Set(arr)
+//   let bestRun = 0; 
+  
+//   for(let i = 0; i < arr.length; i++){
+//    if(set.has(arr[i] - 1)){
+//     continue
+//    } 
+
+//    let currentRun = 1; 
+//    let currentNum = arr[i]
+
+//    while(set.has(currentNum + 1)){
+//     currentNum++
+//     currentRun++
+//    }
+//    console.log('currentrun', currentRun)
+    
+//    bestRun = Math.max(bestRun, currentRun)
+//   }
+
+//   return bestRun
+// }
+
+
+// console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+// Expected: 4
+// console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
+// Expected: 9
+// console.log(longestConsecutive([1, 2, 0, 1]));
+// Expected: 3
+// console.log(longestConsecutive([10]));
+// Expected: 1
+// console.log(longestConsecutive([]));
+// Expected: 0
+// console.log(longestConsecutive([5, 5, 5]));
+// Expected: 1
+
+
+// ============================================
+// Interview Question 36: Product of Array Except Self
+// 🧠 Pattern: two passes - prefix products left, then suffix products right
+// ============================================
+// PROBLEM: Given an array of numbers, return a new array where each
+// element at index i is the product of every OTHER number in the
+// original array - that is, everything multiplied together EXCEPT
+// the number at i itself.
+//
+// Example:
+// Input:  [1, 2, 3, 4]
+// Output: [24, 12, 8, 6]
+// (index 0: 2*3*4 = 24, index 1: 1*3*4 = 12,
+//  index 2: 1*2*4 = 8, index 3: 1*2*3 = 6)
+//
+// Input:  [2, 3, 4]
+// Output: [12, 8, 6]
+// (index 0: 3*4 = 12, index 1: 2*4 = 8, index 2: 2*3 = 6)
+//
+// Input:  [5, 1]
+// Output: [1, 5]
+// (index 0: just 1, index 1: just 5)
+//
+// Input:  [1, 0, 3]
+// Output: [0, 3, 0]
+// (index 0: 0*3 = 0, index 1: 1*3 = 3, index 2: 1*0 = 0)
+//
+// Input:  [0, 0, 5]
+// Output: [0, 0, 0]
+// (every position has at least one 0 among the others)
+//
+// 🚫 Rules
+// - Return a NEW array of the same length as the input
+// - result[i] = product of all elements EXCEPT input[i]
+// - Zeros are valid input and behave normally (0 in a product = 0)
+// - Negative numbers are valid input
+// - Assume the array has at least two elements
+//
+// Think about: the obvious approach is, for each index, loop the
+// whole array multiplying everything except yourself. That's a
+// loop inside a loop - O(n²). Get it working that way first if it
+// helps you see the shape.
+//
+// Then the upgrade. Here's the key idea: the answer for index i is
+// (everything to the LEFT of i, multiplied together) times
+// (everything to the RIGHT of i, multiplied together). The number
+// at i is naturally excluded because left stops before it and right
+// starts after it.
+//
+// So if you could build, for each position, "product of everything
+// to my left" and "product of everything to my right" - then each
+// answer is just left * right. How many passes over the array would
+// it take to gather those two pieces of information?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// Nested loop brute force version
+// const productExceptSelf = (arr) => {
+
+//   const result = []
+//   for(let i = 0; i < arr.length; i++){
+//     let product = 1; 
+//     console.log('arr i', arr[i])
+//     for(let j = 0; j < arr.length; j++){
+//       console.log('arr j', arr[j])
+//       if(j !== i){
+//          product = product  * arr[j]
+//          console.log('product', product)
+//       } 
+//     }
+//     result.push(product)
+//   }
+//   return result
+// }
+
+// 2 passes No nested loop version: prefix/suffix products
+// const productExceptSelf = (arr) => {
+//   const result = []
+//   let leftProduct = 1
+//   for(let i = 0; i < arr.length; i++){
+//     // writing first
+//     result[i] = leftProduct
+//     console.log('result i: ', result[i], 'index: ', i)
+//     // multiplying
+//     leftProduct = leftProduct * arr[i]
+    
+//   }
+
+//   let rightProduct = 1
+//   for(let i = arr.length - 1; i >= 0; i--){
+//     result[i] = result[i] * rightProduct
+//     console.log('result i right: ', result[i], 'index: ', i)
+//     rightProduct = rightProduct * arr[i]
+//   }
+
+//   return result
+// }
+
+
+// console.log(productExceptSelf([1, 2, 3, 4]));
+// Expected: [24, 12, 8, 6]
+// console.log(productExceptSelf([2, 3, 4]));
+// Expected: [12, 8, 6]
+// console.log(productExceptSelf([5, 1]));
+// Expected: [1, 5]
+// console.log(productExceptSelf([1, 0, 3]));
+// Expected: [0, 3, 0]
+// console.log(productExceptSelf([0, 0, 5]));
+// Expected: [0, 0, 0]
+
+
+// ============================================
+// Interview Question 37: Subarray Sum Equals K
+// 🧠 Pattern: running sum + Map of prefix sums with counts
+// ============================================
+// PROBLEM: Given an array of integers and a number k, return the
+// total count of contiguous subarrays whose sum equals exactly k.
+//
+// Example:
+// Input:  [1, 1, 1], k = 2
+// Output: 2
+//
+// Input:  [1, 2, 3], k = 3
+// Output: 2
+//
+// Input:  [1], k = 1
+// Output: 1
+//
+// Input:  [1], k = 0
+// Output: 0
+//
+// Input:  [1, -1, 1, -1], k = 0
+// Output: 4
+//
+// Input:  [3, 4, 7, 2, -3, 1, 4, 2], k = 7
+// Output: 4
+//
+// 🚫 Rules
+// - Return the count (a number), not the subarrays themselves
+// - Subarrays must be contiguous (no skipping)
+// - Negative numbers and a zero k are valid input
+// - Different start/end positions count as different subarrays
+//   even if their values are identical
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const subarraySum = (arr, k) => {
+//   let counter = 0; 
+//   let runningSum = 0; 
+//   const seenSums = new Map()
+//   seenSums.set(0, 1)
+
+//   for(let i = 0; i < arr.length; i++){
+//     runningSum+= arr[i]; 
+//     console.log('runningsum - k ', runningSum  -k)
+//     if(seenSums.has(runningSum - k)){
+//       counter+=seenSums.get(runningSum - k)
+//     }
+    
+//     if(seenSums.has(runningSum)){
+//       seenSums.set(runningSum, seenSums.get(runningSum) + 1)
+//     } else{
+//       seenSums.set(runningSum, 1)
+//     }
+//   }
+
+//   return counter
+// }
+
+// console.log(subarraySum([1, 1, 1], 2));
+// Expected: 2
+// console.log(subarraySum([1, 2, 3], 3));
+// Expected: 2
+// console.log(subarraySum([1], 1));
+// Expected: 1
+// console.log(subarraySum([1], 0));
+// Expected: 0
+// console.log(subarraySum([1, -1, 1, -1], 0));
+// Expected: 4
+// console.log(subarraySum([3, 4, 7, 2, -3, 1, 4, 2], 7));
+// Expected: 4
+
+
+

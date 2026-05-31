@@ -931,30 +931,30 @@
 
 // console.log(largestNumberInArray(arr))
 
-const nums = [3, 2, 4]
-const target = 6
+// const nums = [3, 2, 4]
+// const target = 6
 
-function twoSum(nums, target){
- const map = new Map()
- for(let i = 0; i < nums.length; i++){
-  const compliment = target - nums[i]
-  if(map.has(compliment)){
-    console.log('compliment', map.get(compliment))
-    return [map.get(compliment), i]
-  } else {
-    map.set(nums[i], i)
-  }
- }
- return null; 
-}
+// function twoSum(nums, target){
+//  const map = new Map()
+//  for(let i = 0; i < nums.length; i++){
+//   const compliment = target - nums[i]
+//   if(map.has(compliment)){
+//     console.log('compliment', map.get(compliment))
+//     return [map.get(compliment), i]
+//   } else {
+//     map.set(nums[i], i)
+//   }
+//  }
+//  return null; 
+// }
 
-console.log(twoSum(nums, target))
+// console.log(twoSum(nums, target))
 
-map = new Map()
-map.set(2, 0)
-map.set(4, 2)
+// map = new Map()
+// map.set(2, 0)
+// map.set(4, 2)
 
-compliment = 4
-map.has(compliment) // true, because 4 is a key
+// compliment = 4
+// map.has(compliment) // true, because 4 is a key
 
-map.get(4) // 2 → the index of number 4
+// map.get(4) // 2 → the index of number 4
