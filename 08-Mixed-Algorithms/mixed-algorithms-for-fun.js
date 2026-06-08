@@ -2137,6 +2137,7 @@
 // ============================================
 // Interview Question 35: Longest Consecutive Sequence
 // 🧠 Pattern: dump into Set, only count up from sequence starts
+// 🔁 revisit
 // ============================================
 // PROBLEM: Given an array of integers, return the LENGTH of the
 // longest run of consecutive numbers (each one bigger than the
@@ -2241,6 +2242,7 @@
 // ============================================
 // Interview Question 36: Product of Array Except Self
 // 🧠 Pattern: two passes - prefix products left, then suffix products right
+// 🔁 revisit
 // ============================================
 // PROBLEM: Given an array of numbers, return a new array where each
 // element at index i is the product of every OTHER number in the
@@ -2318,6 +2320,7 @@
 // 2 passes No nested loop version: prefix/suffix products
 // const productExceptSelf = (arr) => {
 //   const result = []
+
 //   let leftProduct = 1
 //   for(let i = 0; i < arr.length; i++){
 //     // writing first
@@ -2325,7 +2328,6 @@
 //     console.log('result i: ', result[i], 'index: ', i)
 //     // multiplying
 //     leftProduct = leftProduct * arr[i]
-    
 //   }
 
 //   let rightProduct = 1
@@ -2354,6 +2356,7 @@
 // ============================================
 // Interview Question 37: Subarray Sum Equals K
 // 🧠 Pattern: running sum + Map of prefix sums with counts
+// 🔁 revisit
 // ============================================
 // PROBLEM: Given an array of integers and a number k, return the
 // total count of contiguous subarrays whose sum equals exactly k.
@@ -2425,4 +2428,226 @@
 // Expected: 4
 
 
+// ============================================
+// Interview Question 38: Move All Negatives to the Front
+// 🧠 Pattern: split into two buckets, preserve order, recombine
+// ============================================
+// PROBLEM: Given an array of integers, return a new array where all
+// the negative numbers come first, followed by all the non-negative
+// numbers (zero and positives). Within each group, the numbers must
+// keep their original relative order.
+//
+// Example:
+// Input:  [3, -1, 2, -5, 4, -2]
+// Output: [-1, -5, -2, 3, 2, 4]
+// (negatives -1, -5, -2 in original order, then non-negatives 3, 2, 4)
+//
+// Input:  [1, 2, 3]
+// Output: [1, 2, 3]
+// (no negatives — order unchanged)
+//
+// Input:  [-1, -2, -3]
+// Output: [-1, -2, -3]
+// (all negatives — order unchanged)
+//
+// Input:  [0, -1, 0, -2]
+// Output: [-1, -2, 0, 0]
+// (zero counts as non-negative)
+//
+// Input:  []
+// Output: []
+//
+// Input:  [5]
+// Output: [5]
+//
+// 🚫 Rules
+// - Negatives come first, non-negatives second
+// - Zero is treated as non-negative (goes in the back group)
+// - Relative order WITHIN each group must be preserved
+// - Return a NEW array; do not mutate the input
+// - Negative numbers and zero are valid input
+// - An empty array returns an empty array
+//
+// Think about: you have done this exact shape before in your notes
+// (Question 12). What separated the two groups there, and what does
+// it look like when the test is "is this negative?" instead?
 
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const moveNegatives = (arr) => {
+//   let negatives = []
+//   let nonNegatives = []
+
+//   for(let i = 0; i < arr.length; i++){
+//     if(arr[i] < 0){
+//       negatives.push(arr[i])
+//     } else{
+//       nonNegatives.push(arr[i])
+//     }
+//   }
+//   return [...negatives, ...nonNegatives]
+// }
+
+
+// console.log(moveNegatives([3, -1, 2, -5, 4, -2]));
+// Expected: [-1, -5, -2, 3, 2, 4]
+// console.log(moveNegatives([1, 2, 3]));
+// Expected: [1, 2, 3]
+// console.log(moveNegatives([-1, -2, -3]));
+// Expected: [-1, -2, -3]
+// console.log(moveNegatives([0, -1, 0, -2]));
+// Expected: [-1, -2, 0, 0]
+// console.log(moveNegatives([]));
+// Expected: []
+// console.log(moveNegatives([5]));
+// Expected: [5]
+
+
+// ============================================
+// Interview Question 39: Majority Element
+// 🧠 Pattern: count occurrences, return the one that breaks the half mark
+// ============================================
+// PROBLEM: Given an array of integers, return the element that
+// appears MORE than half the time (strictly more than n/2 times,
+// where n is the array length). You may assume such an element
+// always exists.
+//
+// Example:
+// Input:  [3, 2, 3]
+// Output: 3
+// (3 appears 2 times out of 3 — more than half)
+//
+// Input:  [2, 2, 1, 1, 1, 2, 2]
+// Output: 2
+// (2 appears 4 times out of 7 — more than half)
+//
+// Input:  [1]
+// Output: 1
+//
+// Input:  [5, 5, 5, 5]
+// Output: 5
+//
+// Input:  [-1, -1, -1, 2, 3]
+// Output: -1
+// (-1 appears 3 times out of 5 — more than half)
+//
+// 🚫 Rules
+// - The majority element appears STRICTLY more than n/2 times
+// - You may assume it always exists (no "no majority" case)
+// - Negative numbers are valid input
+// - Return the element itself, not its count or index
+// - A single-element array returns that element
+//
+// Think about: you have a counting tool you reach for constantly
+// (Q13, Q21, Q32). Get a working version with it first. Then, if
+// you want the senior flex, there's a way to do this in O(1) space
+// with no map at all — track one candidate and a running count that
+// rises and falls. Worth knowing the name of that one.
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const majorityElement = (arr) => {
+//   const map = new Map()
+//   const majority = arr.length/2
+
+//   for(let i = 0; i < arr.length; i++){
+//     if(map.has(arr[i])){
+//       map.set(arr[i], map.get(arr[i]) + 1)
+//     } else{
+//       map.set(arr[i], 1)
+//     }
+//   }
+
+//   let majorityPair = Array.from(map.entries()).find((item) => item[1] > majority)
+
+//   return majorityPair[0]
+
+// }
+
+// console.log(majorityElement([3, 2, 3]));
+// Expected: 3
+// console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
+// Expected: 2
+// console.log(majorityElement([1]));
+// Expected: 1
+// console.log(majorityElement([5, 5, 5, 5]));
+// Expected: 5
+// console.log(majorityElement([-1, -1, -1, 2, 3]));
+// Expected: -1
+
+
+// ============================================
+// Interview Question 40: Two Sum II - Sorted Input
+// 🧠 Pattern: two pointers from both ends, move based on sum vs target
+// ============================================
+// PROBLEM: Given an array of integers SORTED in ascending order and
+// a target number, return the indices of the two numbers that add
+// up to the target. Return them as a two-element array [i, j] with
+// i < j.
+//
+// You may assume there is exactly one solution, and you cannot use
+// the same element twice.
+//
+// Example:
+// Input:  nums = [2, 7, 11, 15], target = 9
+// Output: [0, 1]
+// (nums[0] + nums[1] = 2 + 7 = 9)
+//
+// Input:  nums = [1, 2, 3, 4], target = 6
+// Output: [1, 3]
+// (nums[1] + nums[3] = 2 + 4 = 6)
+//
+// Input:  nums = [-3, 0, 3, 4], target = 0
+// Output: [0, 2]
+// (nums[0] + nums[2] = -3 + 3 = 0)
+//
+// Input:  nums = [1, 2], target = 3
+// Output: [0, 1]
+//
+// 🚫 Rules
+// - The input array is ALREADY sorted ascending
+// - Return the two indices, not the values, with i < j
+// - Exactly one solution is guaranteed
+// - You cannot use the same element twice
+// - Negative numbers are valid input
+//
+// Think about: you solved unsorted Two Sum with a map in Q11, and
+// that still works here. But the array being SORTED unlocks a
+// cheaper approach — no map, O(1) space. If you stand a pointer at
+// each end and look at their sum, the sorted order tells you exactly
+// which pointer to move when the sum is too big or too small. Which
+// way does each move?
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const twoSumSorted = (arr, target) => {
+
+//   let leftpointer = 0; 
+//   let rightpointer = arr.length - 1;
+  
+//   while(leftpointer < rightpointer){
+//     const sum = arr[leftpointer] + arr[rightpointer]
+//     if(sum === target){
+//       return [leftpointer, rightpointer]
+//     } else if(sum < target){
+//       leftpointer++
+//     } else{
+//       rightpointer--
+//     }
+//   }
+// }
+
+// console.log(twoSumSorted([2, 7, 11, 15], 9));
+// Expected: [0, 1]
+// console.log(twoSumSorted([1, 2, 3, 4], 6));
+// Expected: [1, 3]
+// console.log(twoSumSorted([-3, 0, 3, 4], 0));
+// Expected: [0, 2]
+// console.log(twoSumSorted([1, 2], 3));
+// Expected: [0, 1]
