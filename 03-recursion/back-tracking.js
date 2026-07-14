@@ -193,9 +193,9 @@
 // Order does NOT matter → [2,3,2] and [2,2,3] are the SAME combination
 //
 // Visual decision tree (starting from index 0):
-//                      []  target=7
-//                /          \
-//           pick 2           pick 3 ...
+//                    []        target=7
+//                 /      \
+//           pick 2       pick 3 ...
 //          /      \
 //      pick 2    pick 3
 //      /    \
@@ -214,23 +214,39 @@
 // ============================================
 // Uncomment everything under (this line) down to the console.log to run code
 
-// const combinationSum = (nums, target) => {
-//   let result = []; 
-//   let currentPath = []; 
-//   let currentSum = 0; 
+// Closure — a core JavaScript concept, so this is worth understanding well.
+// An inner function can see every variable of the function it's defined inside. 
+// path lives inside combinationSum, so it can read and modify arr, target, result, 
+// currentPath, and currentSum directly — no parameters needed. You already relied on this: 
+// in Subsets, backTrack used nums, result, and currentPath without receiving them as arguments.
 
-//   const allCombinations = () => {
-//     if(currentSum === target || currentSum > target){
-//       result.push([...currentPath])
-//       return
-//     }
-//     for(let num in nums){
-//     }
-//   }
+const combinationSum = (arr, target) => {
+  let result = []; 
+  let currentPath = []; 
+  let currentSum = 0;
+  
+  // base case
+  const path = (start) => {
+    if(currentSum === target){
+      result.push([...currentPath])
+      return
+    } else if(currentSum > target){
+      return 
+    }
 
-//   allCombinations()
-//   return result
-// }
+
+    for(let i = start; i < arr.length; i++){
+      currentPath.push(arr[i])
+      currentSum+= arr[i]
+      path(i)
+      currentPath.pop()
+      currentSum = currentSum - arr[i]
+    }
+  }
+
+  path(0)
+  return result
+}
 
 // console.log(combinationSum([2, 3, 6, 7], 7))
 // Expected: [[2,2,3],[7]]

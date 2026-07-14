@@ -1630,6 +1630,26 @@
 // console.log(maxSubarraySum([3, -2, 5, -1]));
 // Expected: 6
 
+// Extra Solution (Kadane's): 
+// const maxSubArray = (arr) => {
+//   let currentSum = arr[0] 
+//   let maxSum = arr[0]
+
+//   for(let i = 1; i < arr.length; i++){
+//     currentSum = Math.max(arr[i], currentSum + arr[i])
+//     maxSum = Math.max(maxSum, currentSum)
+//   }
+
+//   return maxSum
+
+// }
+// console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]) )
+
+// maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])  // → 6   ([4, -1, 2, 1])
+// maxSubArray([1])                               // → 1
+// maxSubArray([-3, -1, -2])                      // → -1  (must pick at least one)
+// maxSubArray([5, 4, -1, 7, 8])                  // → 23
+
 
 // ============================================
 // Interview Question 29: Best Time to Buy and Sell Stock
@@ -2651,3 +2671,128 @@
 // Expected: [0, 2]
 // console.log(twoSumSorted([1, 2], 3));
 // Expected: [0, 1]
+
+
+
+// ============================================
+// Interview Question 41: Number of Islands finish later*
+// 🧠 Pattern: scan grid, on each unvisited land cell sink its whole blob, count launches
+// ============================================
+// PROBLEM: Given a 2D grid made of "1" (land) and "0" (water), count
+// how many islands the grid contains. An island is a group of land
+// cells connected horizontally or vertically (NOT diagonally). You
+// may assume all four edges of the grid are surrounded by water.
+//
+// Example:
+// Input:
+//   [
+//     ["1","1","0","0"],
+//     ["1","0","0","1"],
+//     ["0","0","1","1"],
+//   ]
+// Output: 2
+// (the top-left group of 1's is one island; the bottom-right group
+//  of 1's is another)
+//
+// Input:
+//   [
+//     ["1","1","1"],
+//     ["0","1","0"],
+//     ["1","0","1"],
+//   ]
+// Output: 3
+// (the connected plus-shape in the middle is one island; the two
+//  lone corners at the bottom are two more)
+//
+// Input:
+//   [
+//     ["0","0"],
+//     ["0","0"],
+//   ]
+// Output: 0
+// (all water)
+//
+// Input:
+//   [
+//     ["1"],
+//   ]
+// Output: 1
+//
+// Input:
+//   [
+//     ["1","0","1","0","1"],
+//   ]
+// Output: 3
+// (a single row — each 1 is isolated by water)
+//
+// 🚫 Rules
+// - Land cells connect only up, down, left, right (NOT diagonally)
+// - Return the COUNT of islands as a number
+// - The grid may be any height and width (rectangular)
+// - An all-water grid returns 0
+// - Cells are the STRINGS "1" and "0", not the numbers 1 and 0
+//
+// Think about: walk every cell in the grid. Most of the time you'll
+// be on water or on land you've already accounted for — skip those.
+// The moment you land on a "1" you haven't seen yet, you've found a
+// NEW island, so add one to your count. Then comes the real work:
+// before moving on, you need to "sink" that entire connected blob —
+// every 1 reachable from this one going up/down/left/right — so you
+// don't count any part of it again later.
+//
+// How do you sink a blob? From the cell you're on, you visit its
+// four neighbors; for each neighbor that's also land, you visit ITS
+// four neighbors; and so on, until the whole connected region is
+// flipped to "0" (or otherwise marked seen). That "spread out to all
+// connected neighbors" move is the heart of graph traversal. A helper
+// function that calls itself on each neighbor is the natural way to
+// express it.
+//
+// Two things to get right: don't walk off the edges of the grid
+// (check your row and column are in bounds before touching a cell),
+// and make sure a sunk cell can't be re-entered (flip it before you
+// recurse, not after).
+
+// ============================================
+// Uncomment everything under (this line) down to the console.log to run code
+
+// WRITE YOUR SOLUTION HERE
+// const numIslands = (arr) => {
+//  for(let i = 0 ; i < arr.length; i++){
+//   console.log(arr[i])
+//   for(let j = 0; j < arr[i].length; j++){
+//     console.log(arr[i][j])
+//   }
+//   console.log(arr[i])
+//  }
+// }
+
+
+// console.log(numIslands([
+//   ["1","1","0","0"],
+//   ["1","0","0","1"],
+//   ["0","0","1","1"],
+// ]));
+
+// Expected: 2
+// console.log(numIslands([
+//   ["1","1","1"],
+//   ["0","1","0"],
+//   ["1","0","1"],
+// ]));
+// Expected: 3
+// console.log(numIslands([
+//   ["0","0"],
+//   ["0","0"],
+// ]));
+// Expected: 0
+// console.log(numIslands([
+//   ["1"],
+// ]));
+// Expected: 1
+// console.log(numIslands([
+//   ["1","0","1","0","1"],
+// ]));
+// Expected: 3
+
+

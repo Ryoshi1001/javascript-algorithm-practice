@@ -111,6 +111,29 @@
 
 // console.log(lengthOfLongestSubString(str))
 
+// Extra Solution: 
+// const lengthOfLongestSubstring = (str) => {
+//   const map = new Map()
+//   let left = 0
+//   let longest = 0
+
+//   for(let right = 0; right < str.length; right++){
+//     let char = str[right]
+//     console.log(char)
+
+//     if(map.has(str[right]) && map.get(str[right]) >= left){
+//       left = map.get(str[right]) + 1; 
+//     }
+//     map.set(str[right], right)
+//     Find longest(compare to self and window)
+//     longest = Math.max(longest, right - left + 1)
+//   }
+
+//   return longest
+// }
+
+// console.log(lengthOfLongestSubstring("abcabcbb"))
+
 
 
 // ============================================
